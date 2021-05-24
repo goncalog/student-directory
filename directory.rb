@@ -12,7 +12,7 @@ def input_students
     cohort = gets.chomp
     # add the student hash to the array
     students.push({ name: name, cohort: cohort.to_sym })
-    puts "Now we have #{students.count} students"
+    puts students.count == 1 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
     # get another name from the user
     puts "Name?"
     name = gets.chomp
