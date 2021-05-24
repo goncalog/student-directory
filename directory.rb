@@ -5,12 +5,16 @@ def input_students
   students = []
 
   # get the first name
+  puts "Name?"
   name = gets.chomp
   while !name.empty? do
+    puts "Cohort?"
+    cohort = gets.chomp
     # add the student hash to the array
-    students.push({ name: name, cohort: :november })
+    students.push({ name: name, cohort: cohort.to_sym })
     puts "Now we have #{students.count} students"
     # get another name from the user
+    puts "Name?"
     name = gets.chomp
   end
   # return the array of students
@@ -24,9 +28,9 @@ end
 
 def print(students)
   students.each_with_index do |student, index| 
-    # puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
     # puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].chr == 'D'
-    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
+    # puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
   end
 end
 
