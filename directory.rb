@@ -41,8 +41,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list"
+  puts "4. Load the list"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -56,7 +56,9 @@ end
 
 def save_list(students)
   # open the file for writing
-  file = File.open("students.csv", "w")
+  puts "In which file do you want to save it?"
+  filename = gets.chomp
+  file = File.open(filename, "w")
   students.each do |student|
     file.puts "#{student[:name]},#{student[:cohort]}"
   end
@@ -66,7 +68,13 @@ end
 
 def load_list
   students = []
-  filename = !ARGV.empty? ? ARGV.first : "students.csv"
+  filename = ""
+  if ARGV.empty?
+    puts "From which file do you want to load it?"
+    filename = gets.chomp
+  else
+    filename = ARGV.first
+  end
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
