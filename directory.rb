@@ -1,23 +1,19 @@
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  # create an empty array
   students = []
   
-  # get the first name
   puts "Name?"
   name = STDIN.gets.chomp
   while !name.empty? do
     puts "Cohort?"
     cohort = STDIN.gets.chomp
-    # add the student hash to the array
     students.push({ name: name, cohort: cohort.to_sym })
     puts students.count == 1 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
     # get another name from the user
     puts "Name?"
     name = STDIN.gets.chomp
   end
-  # return the array of students
   students
 end
 
@@ -62,9 +58,7 @@ def save_list(students)
   # open the file for writing
   file = File.open("students.csv", "w")
   students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    file.puts "#{student[:name]},#{student[:cohort]}"
   end
   file.close
 end
@@ -87,18 +81,12 @@ def interactive_menu
     print_menu()
     selection = STDIN.gets.chomp
     case selection
-    when "1"
-      students = input_students 
-    when "2"
-      show_students(students)
-    when "3"
-      save_list(students)
-    when "4"
-      students = load_list
-    when "9"
-      exit # this will cause the program to terminate
-    else
-      puts "I don't know what you meant, try again"
+      when "1" then students = input_students 
+      when "2" then show_students(students)
+      when "3" then save_list(students)
+      when "4" then students = load_list
+      when "9" then exit # this will cause the program to terminate
+      else puts "I don't know what you meant, try again"
     end
   end
 end
