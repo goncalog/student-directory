@@ -6,16 +6,16 @@ def input_students
   
   # get the first name
   puts "Name?"
-  name = gets.chomp
+  name = STDIN.gets.chomp
   while !name.empty? do
     puts "Cohort?"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     # add the student hash to the array
     students.push({ name: name, cohort: cohort.to_sym })
     puts students.count == 1 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
     # get another name from the user
     puts "Name?"
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
   # return the array of students
   students
@@ -71,7 +71,8 @@ end
 
 def load_list
   students = []
-  file = File.open("students.csv", "r")
+  filename = !ARGV.empty? ? ARGV.first : "students.csv"
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     students.push({ name: name, cohort: cohort.to_sym })
@@ -84,7 +85,7 @@ def interactive_menu
   students = []
   loop do
     print_menu()
-    selection = gets.chomp
+    selection = STDIN.gets.chomp
     case selection
     when "1"
       students = input_students 
