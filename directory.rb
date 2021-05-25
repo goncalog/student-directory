@@ -46,6 +46,7 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -68,6 +69,17 @@ def save_list(students)
   file.close
 end
 
+def load_list
+  students = []
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(",")
+    students.push({ name: name, cohort: cohort.to_sym })
+  end
+  file.close
+  students
+end
+
 def interactive_menu
   students = []
   loop do
@@ -80,6 +92,8 @@ def interactive_menu
       show_students(students)
     when "3"
       save_list(students)
+    when "4"
+      students = load_list
     when "9"
       exit # this will cause the program to terminate
     else
