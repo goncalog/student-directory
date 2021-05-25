@@ -103,3 +103,4 @@ end
 
 #nothing happens until we call the methods
 interactive_menu()
+# puts IO.read($0)
