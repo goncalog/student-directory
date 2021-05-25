@@ -1,3 +1,5 @@
+require 'csv'
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -58,11 +60,11 @@ def save_list(students)
   # open the file for writing
   puts "In which file do you want to save it?"
   filename = gets.chomp
-  file = File.open(filename, "w") { |file| 
+  CSV.open(filename, "wb") do |csv|
     students.each do |student|
-      file.puts "#{student[:name]},#{student[:cohort]}"
+      csv << [student[:name], student[:cohort]]
     end
-  }
+  end
   puts "List saved"
 end
 
@@ -75,12 +77,10 @@ def load_list
   else
     filename = ARGV.first
   end
-  file = File.open(filename, "r") { |file| 
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      students.push({ name: name, cohort: cohort.to_sym })
-    end
-  }  
+  CSV.foreach(filename) do |row|
+    name, cohort = row
+    students.push({ name: name, cohort: cohort.to_sym })
+  end 
   puts "List loaded"
   students
 end
