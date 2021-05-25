@@ -61,6 +61,7 @@ def save_list(students)
     file.puts "#{student[:name]},#{student[:cohort]}"
   end
   file.close
+  puts "List saved"
 end
 
 def load_list
@@ -72,6 +73,7 @@ def load_list
     students.push({ name: name, cohort: cohort.to_sym })
   end
   file.close
+  puts "List loaded"
   students
 end
 
